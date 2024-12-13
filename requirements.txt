@@ -1,0 +1,5 @@
+fastapi==0.100.0
+uvicorn==0.22.0
+python-dotenv==1.0.0
+RouterOS-api==0.10.0  # This is the RouterOS-api package
+laiarturs-ros-api

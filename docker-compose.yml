@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  mikrotik-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mikrotik-api
+    image: mikrotik-api-cas:latest
+    ports:
+      - "${HTTP_PORT}:${HTTP_PORT}" # HTTP port dinamis dari file .env
+    environment:
+      HTTP_PORT: ${HTTP_PORT} # Port API
+      API_KEY: ${API_KEY} # Kunci API
+    volumes:
+      - ./logs:/app/logs # Volume untuk menyimpan log
+    restart: unless-stopped
+    logging:
+      driver: "json-file" # Log rotation untuk mencegah disk penuh
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - freeradius-net
+
+networks:
+  freeradius-net:
+    external: true
